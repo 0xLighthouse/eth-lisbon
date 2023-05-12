@@ -10,6 +10,7 @@
   },
   "scripts": {
     "account": "yarn workspace @se-2/hardhat account",
+    "test": "NODE_OPTIONS=--max_old_space_size=8192 jest --runInBand",
     "chain": "yarn workspace @se-2/hardhat chain",
     "fork": "yarn workspace @se-2/hardhat fork",
     "deploy": "yarn workspace @se-2/hardhat deploy",
@@ -30,7 +31,12 @@
   },
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
+    "@jest/types": "^29.5.0",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.3"
+    "jest": "^29.5.0",
+    "lint-staged": "^13.0.3",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "4.9.5"
   }
 }
