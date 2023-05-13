@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { encodeMessage } from "../../lib/signaturi";
-import { Button, Container, Title } from "@mantine/core";
+import { Button, Center, Container, Grid, Title } from "@mantine/core";
 import { signTypedData } from "@wagmi/core";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
@@ -22,14 +22,13 @@ function ItemPage() {
     signPayload.domain.chainId = 1;
     signPayload.value = signPayload.message;
     const signature = await signTypedData(signPayload);
-
     // TODO: send signature to API
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/collect-signature`, {
       method: "POST",
       body: JSON.stringify({
         id: router.query.id,
         account: account.address,
-        signature
+        signature,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -37,8 +36,7 @@ function ItemPage() {
     });
     const data = await response.json();
 
-    console.log(data)
-
+    console.log(data);
   };
 
   useEffect(() => {
@@ -72,17 +70,47 @@ function ItemPage() {
 
   return (
     <Container>
-      <Title order={4}>{item.title}</Title>
-      <Title order={4}>{item.content}</Title>
-      <Title order={4}>{item.status}</Title>
-      {item.authors.map(auth => (
-        <Title key={auth.address} order={4}>
-          {auth.address}
-        </Title>
-      ))}
-      <Button variant="outline" onClick={() => handleSignedType()}>
-        Sign
-      </Button>
+      <Grid mt="lg">
+        <Grid.Col span={4}>
+          <Title order={4}>Title</Title>
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <Title order={5}>{item.title}</Title>
+        </Grid.Col>
+      </Grid>
+      <Grid mt={"sm"}>
+        <Grid.Col span={4}>
+          <Title order={4}>Status</Title>
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <Title order={5}>{item.status}</Title>
+        </Grid.Col>
+      </Grid>
+      <Grid mt={"sm"}>
+        <Grid.Col span={4}>
+          <Title order={4}>Content</Title>
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <Title order={5}>{item.content}</Title>
+        </Grid.Col>
+      </Grid>
+      <Grid mt={"sm"}>
+        <Grid.Col span={4}>
+          <Title order={4}>Authors</Title>
+        </Grid.Col>
+        <Grid.Col span={8}>
+          {item.authors.map(auth => (
+            <Title key={auth.address} order={5}>
+              {auth.address}
+            </Title>
+          ))}
+        </Grid.Col>
+      </Grid>
+      <Center>
+        <Button variant="outline" mt={"lg"} onClick={() => handleSignedType()}>
+          Sign
+        </Button>
+      </Center>
     </Container>
   );
 }
