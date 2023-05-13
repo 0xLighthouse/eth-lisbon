@@ -82,10 +82,8 @@ function $de8e6a4e16a14510$var$checkSignature(input, signature, index) {
     const address = (0, $kJEtJ$verifyTypedData)((0, $ef87c35dbcd87347$export$9b894e906e2387e8), (0, $ef87c35dbcd87347$export$fc38c637d0867478), input, signature);
     const expectedAddress = input.accounts[index].account;
     if (address.toLowerCase() !== expectedAddress.toLowerCase()) return {
-        result: "bad",
-        error: `Signature #${index + 1} belongs to account ${address} which doesn't match the expected account ${expectedAddress}.`
+        result: "bad"
     };
-    // TODO: check each signature matches message
     return {
         result: "good"
     };
@@ -96,7 +94,7 @@ function $de8e6a4e16a14510$var$calculateValidity(results) {
         const result = results[i];
         if (result.result === "bad") return {
             isValid: false,
-            message: result.error ?? "Bad signature #${i+1}"
+            message: `Bad signature #${i + 1}.`
         };
         else if (result.result === "good") good += 1;
     }

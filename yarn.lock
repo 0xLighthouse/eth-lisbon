@@ -5,6 +5,18 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@0xLighthouse/signaturi@workspace:packages/signaturi":
+  version: 0.0.0-use.local
+  resolution: "@0xLighthouse/signaturi@workspace:packages/signaturi"
+  dependencies:
+    "@parcel/packager-ts": ^2.8.3
+    "@parcel/transformer-typescript-types": ^2.8.3
+    ethers: ^5
+    parcel: ^2.8.3
+    rimraf: ^5.0.0
+  languageName: unknown
+  linkType: soft
+
 "@account-abstraction/contracts@npm:^0.5.0":
   version: 0.5.0
   resolution: "@account-abstraction/contracts@npm:0.5.0"
@@ -3043,18 +3055,6 @@ __metadata:
   checksum: e741225d6ac9cf08f8016bad49622fbd4a4e0d20c2e8c2b38a0abf0ddca69c58275b0ebdb9d5dde2905cf84f6977bc302f7ed5e5ba42c23afa27e9e65b900f36
   languageName: node
   linkType: hard
-
-"@lighthouse/signaturi@workspace:packages/signaturi":
-  version: 0.0.0-use.local
-  resolution: "@lighthouse/signaturi@workspace:packages/signaturi"
-  dependencies:
-    "@parcel/packager-ts": ^2.8.3
-    "@parcel/transformer-typescript-types": ^2.8.3
-    ethers: ^5
-    parcel: ^2.8.3
-    rimraf: ^5.0.0
-  languageName: unknown
-  linkType: soft
 
 "@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0":
   version: 1.1.1

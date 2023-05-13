@@ -19,7 +19,6 @@ interface Result {
 }
 interface SignatureResult {
     result: 'good' | 'bad' | 'missing';
-    error?: string;
 }
 export function encodeMessage(message: InputMessage): any;
 export function createSignaturiMessage(input: InputMessage, signatures: Array<Signature | string | null>): EncodedMessage;

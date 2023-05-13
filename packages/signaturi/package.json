@@ -1,16 +1,16 @@
 {
-  "name": "@lighthouse/signaturi",
-  "version": "0.0.1",
+  "name": "@0xLighthouse/signaturi",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
-    "url": "git@github.com:TODO.git"
+    "url": "git@github.com:0xLighthouse/eth-lisbon.git"
   },
   "source": "src/index.ts",
   "main": "dist/main.js",
   "module": "dist/module.js",
   "types": "dist/types.d.ts",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "build": "rimraf dist && parcel build",
