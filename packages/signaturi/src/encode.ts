@@ -46,5 +46,6 @@ export function createSignaturiMessage(
     return {
         message: input,
         signatures: serializedSignatures,
+        version: '1',
     }
 }

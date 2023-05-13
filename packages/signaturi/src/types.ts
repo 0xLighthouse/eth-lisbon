@@ -11,6 +11,7 @@ export interface EncodedMessage {
     message: InputMessage,
     /// signatures must match InputMessage.accounts 1:1, same length and order
     signatures: Array<string | null>,
+    version: '1',
 }
 
 /// Structure that will be signed with EIP-712.

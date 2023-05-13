@@ -17,6 +17,7 @@ describe('verifySignaturiMessage', () => {
                 null,
                 '0xe04397f010a6f8c53987d22693b2ba56432f337f12239aa798b12c760e8276c94d8e2e0870b562c041627a5814c0f086239f34e8e099ce1a763afeb60dc74d1d1c',
             ],
+            version: '1',
         })
         expect(result).toStrictEqual({
             'signatures': [
