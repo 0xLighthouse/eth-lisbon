@@ -47,7 +47,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
       titleValue,
       bodyValue,
     };
-    const response = await fetch("http://localhost:3000/api/create", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/create`, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -155,7 +155,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
               <Center sx={{ flexDirection: "column" }}>
                 <Title order={3}>{createdAnnouncement}</Title>
 
-                <CopyButton value={`http://localhost:3000/${createdAnnouncement}`}>
+                <CopyButton value={`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}>
                   {({ copied, copy }) => (
                     <Button color={copied ? "teal" : "blue"} variant="outline" onClick={copy}>
                       {copied ? "Copied url" : "Copy url"}
