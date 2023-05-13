@@ -1,3 +1,6 @@
+/// Base Signaturi error class, all other errors extend from it
+export class SignaturiError extends Error {}
+
 /// EVM account
 export interface Account {
     /// Human-readable name associated to the account (e.g. person name, ENS,

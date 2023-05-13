@@ -3,6 +3,9 @@ import {
     createSignaturiMessage,
     encodeMessage,
     SignaturiLengthMismatchError,
+    SignaturiNoAccountsError,
+    SignaturiNoContentError,
+    SignaturiNoSignaturesError,
 } from "../src/encode"
 
 describe('encodeMessage', () => {
@@ -126,6 +129,52 @@ describe('createSignaturiMessage', () => {
         })
     })
 
+    it('error if no accounts', async () => {
+        expect(() => createSignaturiMessage(
+           {
+               content: CONTENT,
+               accounts: [],
+           },
+           [
+               '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+               null,
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
+           ],
+        )).toThrow(new SignaturiNoAccountsError('Must provide at least one account.'))
+    })
+
+    it('error if no content', async () => {
+        expect(() => createSignaturiMessage(
+           {
+               content: '',
+               accounts: [
+                    ACCOUNT1,
+                    ACCOUNT2,
+                    ACCOUNT3,
+               ],
+           },
+           [
+               '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+               null,
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
+           ],
+        )).toThrow(new SignaturiNoContentError('Must provide some content.'))
+    })
+
+    it('error if no signatures', async () => {
+        expect(() => createSignaturiMessage(
+           {
+               content: CONTENT,
+               accounts: [
+                   ACCOUNT1,
+                   ACCOUNT2,
+                   ACCOUNT3,
+               ],
+           },
+           [],
+        )).toThrow(new SignaturiNoSignaturesError('Must provide signatures.'))
+    })
+
     it('error if fewer signatures than accounts', async () => {
         expect(() => createSignaturiMessage(
            {
@@ -159,4 +208,3 @@ describe('createSignaturiMessage', () => {
         )).toThrow(new SignaturiLengthMismatchError('Number of signatures does not match number of accounts.'))
     })
 })
-
