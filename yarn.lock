@@ -17,15 +17,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@0xlighthouse/signaturi@npm:0.0.4":
-  version: 0.0.4
-  resolution: "@0xlighthouse/signaturi@npm:0.0.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%400xLighthouse%2Fsignaturi%2F0.0.4%2F847a31a3ea1e3e0d68968cfe646fd8b4db051003"
-  dependencies:
-    ethers: ^5
-  checksum: d5313c6900d489397cb542420c3281713e029ba2a20ce2004666c917cc8baa4087e7fe2c3a73931f50ef3519be1067a2ada049998f08559940b456815c1a266a
-  languageName: node
-  linkType: hard
-
 "@account-abstraction/contracts@npm:^0.5.0":
   version: 0.5.0
   resolution: "@account-abstraction/contracts@npm:0.5.0"
@@ -5260,7 +5251,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@se-2/nextjs@workspace:packages/nextjs"
   dependencies:
-    "@0xlighthouse/signaturi": 0.0.4
     "@emotion/react": ^11.11.0
     "@emotion/server": ^11.11.0
     "@ethersproject/networks": ^5.7.1

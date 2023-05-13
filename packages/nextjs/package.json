@@ -14,7 +14,6 @@
     "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
   },
   "dependencies": {
-    "@0xlighthouse/signaturi": "0.0.4",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
     "@ethersproject/networks": "^5.7.1",
