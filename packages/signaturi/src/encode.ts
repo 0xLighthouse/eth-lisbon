@@ -1,5 +1,5 @@
 import { Signature } from "ethers";
-import { joinSignature, _TypedDataEncoder } from "ethers/lib/utils.js";
+import { joinSignature, _TypedDataEncoder } from "ethers/lib/utils";
 import { EIP712_DOMAIN, EIP712_TYPES } from "./constants";
 import { EncodedMessage, InputMessage } from "./types";
 
