@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       count: resp.rowCount,
     });
   } catch (err) {
+    console.log(err)
     await client.end()
-    return res.status(400).json(err);
   }
 }

@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     await client.end()
     return res.status(200).json({ record: feedItem });
   } catch (err) {
+    console.log(err)
     await client.end()
-    return res.status(400).json(err);
   }
 }
