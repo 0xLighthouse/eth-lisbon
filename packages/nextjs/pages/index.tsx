@@ -1,82 +1,65 @@
-import { useState } from "react";
-import Head from "next/head";
-import { Avatar, Box, Button, Card, Container, Flex, Group, Tabs, Text } from "@mantine/core";
-import { IconCloudLockOpen, IconNewSection } from "@tabler/icons-react";
-import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { AddNewAdress } from "~~/components/AddAddressModal";
-import { DropdownMenu } from "~~/components/Drodown";
-import { StepperComponent } from "~~/components/Stepper";
+import { Badge, Box, Card, Container, Flex, Group, Text, Title } from "@mantine/core";
+import { GetServerSideProps } from "next";
+import { timeAgo } from "~~/utils/scaffold-eth/timeAgo";
 
-const Home: NextPage = () => {
-  const account = useAccount();
-  const [isOpenedModal, setIsOpenedModal] = useState(false);
-  
+const Home = ({ feedItems }) => {
+  console.log(feedItems);
   return (
-    <>
-      <Head>
-        <title>Scaffold-ETH 2 App</title>
-        <meta name="description" content="Created with 🏗 scaffold-eth-2" />
-      </Head>
-      <Container py={"xl"}>
+    <Container>
+      <Title order={3}>Feed list</Title>
+      <Flex direction={"column"} gap={"xl"}>
+        {feedItems.map(item => (
+          <Flex direction={"row"} key={item.id} mt="sm" gap={"sm"} sx={{ position: "relative" }}>
+            <Flex direction={"column"} miw={"30%"} sx={{ textAlign: "end" }} mt={"sm"}>
+              <Text size={"sm"} sx={{ lineHeight: 1 }}>
+                {item.title}
+              </Text>
+              <Text size={"xs"}>{timeAgo(item.created_at)}</Text>
+            </Flex>
 
-        
-
-        <Tabs defaultValue="gallery" fz="lg">
-          <Tabs.List>
-            <Tabs.Tab value="gallery" fz={"md"} icon={<IconNewSection size="1.4rem" />}>
-              Create
-            </Tabs.Tab>
-            <Tabs.Tab value="messages" fz={"md"} icon={<IconCloudLockOpen size="1.4rem" />}>
-              Verify
-            </Tabs.Tab>
-          </Tabs.List>
-
-          {/* -------------------Create -------------------*/}
-          <Tabs.Panel value="gallery" pt="xs">
-            {/* List of addresses */}
-            <Group align="start">
-              <Flex direction={"column"} gap={"xs"}>
-                <Card p={"md"} shadow="sm" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                  <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
-                    <Text size={"sm"}>{account.address}</Text>
-                  </Flex>
-
-                  <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
-                    <Text size={"sm"}>{account.address}</Text>
-                  </Flex>
-
-                  <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
-                    <Text size={"sm"}>{account.address}</Text>
-                  </Flex>
-                </Card>
+            <Card shadow="xs" miw={"100%"}>
+              <Flex direction={"column"} gap={"sm"}>
+                <Group>
+                  <Text size={"md"} sx={{ lineHeight: 1 }}>
+                    {item.title}
+                  </Text>
+                  <Badge color={item.status == "signed" ? "green" : item.status == "pending" ? "yellow" : "red"}>
+                    {item.status}
+                  </Badge>
+                </Group>
+                <Text size={"sm"}>{item.content}</Text>
+                {/* <Group spacing={"xs"}>
+                  {item.authors.map(author => (
+                    <Avatar
+                      key={author.accountAddress}
+                      src={`https://cdn.stamp.fyi/avatar/${item.address}`}
+                      size={"md"}
+                      radius={"xl"}
+                      sx={{
+                          border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red",
+                        }}
+                        />
+                        ))}
+                    </Group> */}
+                <Text>{item.address}</Text>
               </Flex>
-
-              {/* Authors add new  */}
-              <Flex direction={"column"}>
-                <Text size={"sm"}>Authors</Text>
-                <DropdownMenu onClick={() => setIsOpenedModal(true)} />
-              </Flex>
-            </Group>
-            <Box></Box>
-            <StepperComponent />
-          </Tabs.Panel>
-
-          {/* -------------------Verify -------------------*/}
-
-          <Tabs.Panel value="messages" pt="xs">
-            Messages tab content
-          </Tabs.Panel>
-        </Tabs>
-        <AddNewAdress isOpened={isOpenedModal} onClose={() => setIsOpenedModal(false)} />
-
-        
-      </Container>
-    </>
+            </Card>
+            <Box sx={{ position: "absolute" }}></Box>
+          </Flex>
+        ))}
+      </Flex>
+    </Container>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // Fetch data from API endpoint
+  const res = await fetch("http://localhost:3000/api/feed");
+  const data = await res.json();
+  console.log(data);
+
+  // Return the data as props
+  return { props: { feedItems: data.data } };
 };
 
 export default Home;
