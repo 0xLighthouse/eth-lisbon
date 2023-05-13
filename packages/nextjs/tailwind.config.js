@@ -8,19 +8,19 @@ module.exports = {
     themes: [
       {
         scaffoldEth: {
-          primary: "#93BBFB",
+          primary: "#d8d8d8",
           "primary-content": "#212638",
-          secondary: "#DAE8FF",
+          secondary: "#d8d8d8",
           "secondary-content": "#212638",
-          accent: "#93BBFB",
+          accent: "#FAF9F6",
           "accent-content": "#212638",
           neutral: "#212638",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
-          "base-200": "#F9FBFF",
+          "base-200": "#d8d8d8",
           "base-300": "#DAE8FF",
           "base-content": "#212638",
-          info: "#93BBFB",
+          info: "#FAF9F6",
           success: "#34EEB6",
           warning: "#FFCF72",
           error: "#FF8863",
@@ -90,7 +90,6 @@ module.exports = {
   theme: {
     // Extend Tailwind classes (e.g. font-bai-jamjuree, animate-grow)
     extend: {
-      fontFamily: "Open Sans, sans serif",
       keyframes: {
         grow: {
           "0%": {

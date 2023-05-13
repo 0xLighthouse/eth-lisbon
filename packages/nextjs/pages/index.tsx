@@ -11,7 +11,7 @@ import { StepperComponent } from "~~/components/Stepper";
 const Home: NextPage = () => {
   const account = useAccount();
   const [isOpenedModal, setIsOpenedModal] = useState(false);
-  console.log(account);
+
   return (
     <>
       <Head>
@@ -21,10 +21,10 @@ const Home: NextPage = () => {
       <Container size={"xxl"} py={"xl"}>
         <Tabs defaultValue="gallery" fz="lg">
           <Tabs.List>
-            <Tabs.Tab value="gallery" fz={"lg"} icon={<IconNewSection size="1.4rem" />}>
+            <Tabs.Tab value="gallery" fz={"md"} icon={<IconNewSection size="1.4rem" />}>
               Create
             </Tabs.Tab>
-            <Tabs.Tab value="messages" fz={"lg"} icon={<IconCloudLockOpen size="1.4rem" />}>
+            <Tabs.Tab value="messages" fz={"md"} icon={<IconCloudLockOpen size="1.4rem" />}>
               Verify
             </Tabs.Tab>
           </Tabs.List>
@@ -34,23 +34,18 @@ const Home: NextPage = () => {
             {/* List of addresses */}
             <Group align="start">
               <Flex direction={"column"} gap={"xs"}>
-                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                <Card p={"md"} shadow="sm" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                   <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    1
                     <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
                     <Text size={"sm"}>{account.address}</Text>
                   </Flex>
-                </Card>
-                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+
                   <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    2
                     <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
                     <Text size={"sm"}>{account.address}</Text>
                   </Flex>
-                </Card>
-                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+
                   <Flex direction={"row"} align={"center"} gap={"sm"}>
-                    3
                     <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
                     <Text size={"sm"}>{account.address}</Text>
                   </Flex>
@@ -59,7 +54,7 @@ const Home: NextPage = () => {
 
               {/* Authors add new  */}
               <Flex direction={"column"}>
-                <Text>Authors</Text>
+                <Text size={"sm"}>Authors</Text>
                 <DropdownMenu onClick={() => setIsOpenedModal(true)} />
               </Flex>
             </Group>

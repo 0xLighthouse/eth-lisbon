@@ -30,3 +30,12 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+@font-face {
+  font-family: "Bariol";
+  font-weight: 400 900;
+  font-display: block;
+  font-style: normal;
+  font-named-instance: "Bariol";
+  src: url("/fonts/bariol_regular-webfont.woff2") format("woff2");
+}

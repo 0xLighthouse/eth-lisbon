@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Button, Group, Stepper, Textarea } from "@mantine/core";
+import { Button, Group, Stepper, Text, Textarea } from "@mantine/core";
 
 export const StepperComponent = () => {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const nextStep = () => setActive(current => (current < 3 ? current + 1 : current));
   const prevStep = () => setActive(current => (current > 0 ? current - 1 : current));
 
   return (
     <>
-      <Stepper active={active} onStepClick={setActive} breakpoint="sm" mt={"xl"}>
+      <Stepper active={active} onStepClick={setActive} breakpoint="sm" mt={"xl"} size="sm">
         <Stepper.Step label="Encode" description="Encode your content">
-          Step 1: Encode content
+          <Text>Step 1: Encode content</Text>
           <Textarea placeholder="Some content" label="Content" withAsterisk minRows={4} />
         </Stepper.Step>
         <Stepper.Step label="Collect" description="Collect bruh">
