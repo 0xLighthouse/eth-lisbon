@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Avatar, Box, Card, Container, Flex, Group, Tabs, Text } from "@mantine/core";
+import { Avatar, Box, Button, Card, Container, Flex, Group, Tabs, Text } from "@mantine/core";
 import { IconCloudLockOpen, IconNewSection } from "@tabler/icons-react";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
@@ -8,19 +8,20 @@ import { AddNewAdress } from "~~/components/AddAddressModal";
 import { DropdownMenu } from "~~/components/Drodown";
 import { StepperComponent } from "~~/components/Stepper";
 
-
-
 const Home: NextPage = () => {
   const account = useAccount();
   const [isOpenedModal, setIsOpenedModal] = useState(false);
-
+  
   return (
     <>
       <Head>
         <title>Scaffold-ETH 2 App</title>
         <meta name="description" content="Created with 🏗 scaffold-eth-2" />
       </Head>
-      <Container size={"xxl"} py={"xl"}>
+      <Container py={"xl"}>
+
+        
+
         <Tabs defaultValue="gallery" fz="lg">
           <Tabs.List>
             <Tabs.Tab value="gallery" fz={"md"} icon={<IconNewSection size="1.4rem" />}>
@@ -71,6 +72,8 @@ const Home: NextPage = () => {
           </Tabs.Panel>
         </Tabs>
         <AddNewAdress isOpened={isOpenedModal} onClose={() => setIsOpenedModal(false)} />
+
+        
       </Container>
     </>
   );

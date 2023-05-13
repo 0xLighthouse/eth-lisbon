@@ -7,9 +7,11 @@ export const fetchFeed = async () => {
     return rows;
 };
 
-export const newDocument = async () => {
-    const { rows } = await sql`
-    INSERT INTO feed (id, title, content, likes) VALUES (uuid_generate_v4(), '${generateName()}', 'World', 100) RETURNING *;`;
+export const createSignedContent = async () => {
+    console.log('--- process.env.POSTGRES_URL')
+    console.log('--- process.env.POSTGRES_URL')
+    console.log(process.env.POSTGRES_URL)
+    const { rows } = await sql`INSERT INTO feed(id, title, content, likes) VALUES(uuid_generate_v4(), '${generateName()}', 'World', 100) RETURNING *;`;
     console.log(rows)
     return rows;
 };
