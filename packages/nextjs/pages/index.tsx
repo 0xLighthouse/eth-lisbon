@@ -8,6 +8,8 @@ import { AddNewAdress } from "~~/components/AddAddressModal";
 import { DropdownMenu } from "~~/components/Drodown";
 import { StepperComponent } from "~~/components/Stepper";
 
+
+
 const Home: NextPage = () => {
   const account = useAccount();
   const [isOpenedModal, setIsOpenedModal] = useState(false);
