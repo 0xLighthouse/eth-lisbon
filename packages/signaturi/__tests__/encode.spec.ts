@@ -20,7 +20,7 @@ const ACCOUNT3 = {
 
 describe('encodeMessage', () => {
 
-    it('generates EIP-712 typed message', async () => {
+    it('generates EIP-712 typed payload', async () => {
         const encodedMessage = encodeMessage({
             content: CONTENT,
             accounts: [
@@ -29,7 +29,67 @@ describe('encodeMessage', () => {
                 ACCOUNT3,
             ],
         });
-        expect(encodedMessage).toBe('0x1901e70e8637f1a9bde79d7906a4afadf82fecff057d2a8e786ef833e156c62358a063374558d416fb445b7c0cf678ee7066616dd1b9c7a96ff50f5b0b46ec2db017')
+        expect(encodedMessage).toStrictEqual({
+            "domain": {
+                "chainId": "1",
+                "name": "Signaturi",
+                "version": "1"
+            },
+            "message": {
+                "accounts": [
+                    {
+                        "account": "0x18d07e528ad5e863d89affe7f27f861f323a2ec5",
+                        "name": "Signaturi Test Account"
+                    },
+                    {
+                        "account": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+                        "name": "vitalik.eth"
+                    },
+                    {
+                        "account": "0x0505f6743331f6c47e711516d03a415bbc979133",
+                        "name": ""
+                    }
+                ],
+                "content": "Verified by Signaturi"
+            },
+            "primaryType": "Message",
+            "types": {
+                "Account": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "account",
+                        "type": "address"
+                    }
+                ],
+                "EIP712Domain": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "version",
+                        "type": "string"
+                    },
+                    {
+                        "name": "chainId",
+                        "type": "uint256"
+                    }
+                ],
+                "Message": [
+                    {
+                        "name": "content",
+                        "type": "string"
+                    },
+                    {
+                        "name": "accounts",
+                        "type": "Account[]"
+                    }
+                ]
+            }
+        })
     })
 
     // TODO: test error if invalid account

@@ -11,10 +11,7 @@ import { EncodedMessage, InputMessage } from "./types";
    https://docs.ethers.org/v5/api/utils/hashing/#TypedDataEncoder
    **/
 export function encodeMessage(message: InputMessage) {
-    const eip712Message = _TypedDataEncoder.encode(
-        EIP712_DOMAIN, EIP712_TYPES, message
-    )
-    return eip712Message
+    return _TypedDataEncoder.getPayload(EIP712_DOMAIN, EIP712_TYPES, message)
 }
 
 /// Creates a signaturi message that can be later verified for authenticity
