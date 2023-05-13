@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { encodeMessage } from "../lib/signaturi";
+import { encodeMessage } from "../../lib/signaturi";
 import { Button, Container, Title } from "@mantine/core";
 import { signTypedData } from "@wagmi/core";
 import { ethers } from "ethers";
