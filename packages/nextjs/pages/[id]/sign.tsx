@@ -15,7 +15,8 @@ function ItemPage() {
   const account = useAccount();
 
   /**
-   * Save the signature to the database
+   * Save the signature to the databasegs
+   *
    */
   const handleSignedType = async () => {
     signPayload.domain.chainId = 1;
@@ -23,9 +24,10 @@ function ItemPage() {
     const signature = await signTypedData(signPayload);
 
     // TODO: send signature to API
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/add-signature`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/collect-signature`, {
       method: "POST",
       body: JSON.stringify({
+        id: router.query.id,
         account: account.address,
         signature
       }),
@@ -86,17 +88,3 @@ function ItemPage() {
 }
 
 export default ItemPage;
-// Verify the signature
-
-// useEffect(() => {
-//   const messageBytes = ethers.utils.toUtf8Bytes(message);
-//   const messageHash = ethers.utils.hashMessage(messageBytes);
-//   if (signature) {
-//     const signingAddress = ethers.utils.recoverAddress(messageHash, signature);
-//     console.log("signingAddress");
-//     console.log(signingAddress);
-//   }
-
-//   if (data) {
-//   }
-// }, [data, message, signature]);
