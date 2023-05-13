@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Avatar,
-  Badge,
   Button,
   Card,
   Center,
@@ -65,16 +64,16 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
     <>
       <Stepper active={active} onStepClick={setActive} breakpoint="sm" mt={"sm"} size="sm">
         <Stepper.Step label="Encode" description="Encode your content">
-          <TextInput
+          {/* <TextInput
             label="Title"
             placeholder="Announcement title"
             withAsterisk
             value={titleValue}
             onChange={e => setTitleValue(e.currentTarget.value)}
-          />
+          /> */}
           <Textarea
             placeholder="Announcement body"
-            label="Body"
+            label="Content"
             withAsterisk
             minRows={4}
             mt="xs"
@@ -172,11 +171,6 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
       </Stepper>
 
       <Group position="center" mt="xl">
-        {active !== 0 && (
-          <Button variant="default" onClick={prevStep}>
-            Back
-          </Button>
-        )}
         <Button variant="outline" onClick={handleNext}>
           Next step
         </Button>
