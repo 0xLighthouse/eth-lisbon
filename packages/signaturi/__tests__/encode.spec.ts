@@ -1,5 +1,9 @@
 import { ACCOUNT1, ACCOUNT2, ACCOUNT3, CONTENT } from "./helper"
-import { createSignaturiMessage, encodeMessage } from "../src/encode"
+import {
+    createSignaturiMessage,
+    encodeMessage,
+    SignaturiLengthMismatchError,
+} from "../src/encode"
 
 describe('encodeMessage', () => {
 
@@ -122,6 +126,37 @@ describe('createSignaturiMessage', () => {
         })
     })
 
-    // TODO: test error scenarios 
+    it('error if fewer signatures than accounts', async () => {
+        expect(() => createSignaturiMessage(
+           {
+               content: CONTENT,
+               accounts: [
+                   ACCOUNT1,
+                   ACCOUNT2,
+                   ACCOUNT3,
+               ],
+           },
+           [
+               '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+           ],
+        )).toThrow(new SignaturiLengthMismatchError('Number of signatures does not match number of accounts.'))
+    })
+
+    it('error if more signatures than accounts', async () => {
+        expect(() => createSignaturiMessage(
+           {
+               content: CONTENT,
+               accounts: [
+                   ACCOUNT1,
+                   ACCOUNT3,
+               ],
+           },
+           [
+               '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+               null,
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
+           ],
+        )).toThrow(new SignaturiLengthMismatchError('Number of signatures does not match number of accounts.'))
+    })
 })
 

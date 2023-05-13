@@ -3,6 +3,8 @@ import { joinSignature, _TypedDataEncoder } from "ethers/lib/utils";
 import { EIP712_DOMAIN, EIP712_TYPES } from "./constants";
 import { EncodedMessage, InputMessage } from "./types";
 
+export class SignaturiLengthMismatchError extends Error {}
+
 /**
    Encode a Signaturi-compatible message into an EIP-712 accounts to sign.
 
@@ -18,21 +20,9 @@ export function encodeMessage(message: InputMessage) {
 export function createSignaturiMessage(
     input: InputMessage, signatures: Array<Signature | string | null>
 ): EncodedMessage {
-    // TODO: sanity checks (throw SignaturiEncodeError)
-    // TODO: 1/ same length of signatures and accounts
-    // TODO: 2/ at least one non-null signature
-    // TODO: 3/ signatures are valid
-    // TODO: 4/ signatures match accounts
-    // const messageHash = hashMessage(input)
-    // Recover the addresses from the signatures
-    // const recoveredAddress1 = ethers.utils.recoverAddress(messageHash, await alice.signMessage(DATA));
-    // const recoveredAddress2 = ethers.utils.recoverAddress(messageHash, await bob.signMessage(DATA));
-    // const recoveredAddress3 = ethers.utils.recoverAddress(messageHash, await charlie.signMessage(DATA));
-    // // Check the recovered address against the expected address
-    // const isValidSignature = (recoveredAddress1.toLowerCase() === alice.address.toLowerCase() &&
-    //       recoveredAddress2.toLowerCase() === bob.address.toLowerCase() &&
-    //       recoveredAddress3.toLowerCase() === charlie.address.toLowerCase()
-    //                          ) ? true : false
+    if (input.accounts.length !== signatures.length) {
+        throw new SignaturiLengthMismatchError('Number of signatures does not match number of accounts.')
+    }
 
     // serialize all signatures into into string or null
     const serializedSignatures = signatures.map(
