@@ -90,9 +90,9 @@ describe('createSignaturiMessage', () => {
                 ],
             },
             [
-                '0xa97b7f3bc17d3762d1c802042f3d18cbc7f835949c34b310429d186959a496086a38dacdb59d5b0e5e25481013778cc584d0526b587d72f2ed7d511d8669ca171c',
+                '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
                 null,
-                '0xe04397f010a6f8c53987d22693b2ba56432f337f12239aa798b12c760e8276c94d8e2e0870b562c041627a5814c0f086239f34e8e099ce1a763afeb60dc74d1d1c',
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
             ],
         )
         expect(signaturiMessage).toStrictEqual({
@@ -114,9 +114,9 @@ describe('createSignaturiMessage', () => {
                 'content': 'Verified by Signaturi',
             },
             signatures: [
-                '0xa97b7f3bc17d3762d1c802042f3d18cbc7f835949c34b310429d186959a496086a38dacdb59d5b0e5e25481013778cc584d0526b587d72f2ed7d511d8669ca171c',
+                '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
                 null,
-                '0xe04397f010a6f8c53987d22693b2ba56432f337f12239aa798b12c760e8276c94d8e2e0870b562c041627a5814c0f086239f34e8e099ce1a763afeb60dc74d1d1c',
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
             ],
             version: '1',
         })

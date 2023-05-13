@@ -13,9 +13,43 @@ describe('verifySignaturiMessage', () => {
                 ],
             },
             signatures: [
-                '0xa97b7f3bc17d3762d1c802042f3d18cbc7f835949c34b310429d186959a496086a38dacdb59d5b0e5e25481013778cc584d0526b587d72f2ed7d511d8669ca171c',
+                '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
                 null,
-                '0xe04397f010a6f8c53987d22693b2ba56432f337f12239aa798b12c760e8276c94d8e2e0870b562c041627a5814c0f086239f34e8e099ce1a763afeb60dc74d1d1c',
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
+            ],
+            version: '1',
+        })
+        expect(result).toStrictEqual({
+            'isValid': true,
+            'message': 'Success: 2 signatures match.',
+            'signatures': [
+                {
+                    'result': 'good',
+                },
+                {
+                    'result': 'missing',
+                },
+                {
+                    'result': 'good',
+                },
+            ],
+        })
+    })
+
+    it('valid result if at least one good signature and no bad ones', async () => {
+        const result = verifySignaturiMessage({
+            message: {
+                content: CONTENT,
+                accounts: [
+                    ACCOUNT1,
+                    ACCOUNT2,
+                    ACCOUNT3,
+                ],
+            },
+            signatures: [
+                '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+                null,
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
             ],
             version: '1',
         })
@@ -70,6 +104,40 @@ describe('verifySignaturiMessage', () => {
         })
     })
 
-    // TODO: test mix of good, bad and missing signatures
+    it('invalid result if there is one bad signature', async () => {
+        const result = verifySignaturiMessage({
+            message: {
+                content: CONTENT,
+                accounts: [
+                    ACCOUNT1,
+                    ACCOUNT2,
+                    ACCOUNT3,
+                ],
+            },
+            signatures: [
+                '0x17de0d62b42d355f097c9865811afa6574e46877ea5f5774b267ace41ee2d9a352743ff67ec92903121eeaf4f4d7d1dd0f87ddeace0a4f8fedb9fbe9bdb1eda31b',
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1b',
+                '0x0fb3fbdaa9b2410310a52fefd46e57fc9b6573d0808a27402373642bde4065f65984fe5bceffdbb5569c516c626381712b8429d01cd680e18c1a9e94dbe0219c1c',
+            ],
+            version: '1',
+        })
+        expect(result).toStrictEqual({
+            'isValid': false,
+            'message': 'Signature #2 belongs to account 0xa3D715e6b0dDE076491681e26f2329505633B7a2 which doesn\'t match the expected account 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045.',
+            'signatures': [
+                {
+                    'result': 'good',
+                },
+                {
+                    'result': 'bad',
+                    'error': 'Signature #2 belongs to account 0xa3D715e6b0dDE076491681e26f2329505633B7a2 which doesn\'t match the expected account 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045.',
+                },
+                {
+                    'result': 'good',
+                },
+            ],
+        })
+    })
+
     // TODO: test all bad signatures
 })
