@@ -155,7 +155,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
               <Center sx={{ flexDirection: "column" }}>
                 <Title order={3}>{createdAnnouncement}</Title>
 
-                <CopyButton value={`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}`}>
+                <CopyButton value={`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}>
                   {({ copied, copy }) => (
                     <Button color={copied ? "teal" : "blue"} variant="outline" onClick={copy}>
                       {copied ? "Copied url" : "Copy url"}
