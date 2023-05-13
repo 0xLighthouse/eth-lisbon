@@ -1,8 +1,6 @@
 beforeAll(async () => {
-
-  console.log('Belfore all')
-
-  jest.clearAllMocks()
-  jest.resetAllMocks()
+    console.log('Before all')
+    jest.clearAllMocks()
+    jest.resetAllMocks()
 })
 
