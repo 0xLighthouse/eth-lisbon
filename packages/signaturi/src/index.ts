@@ -1,1 +1,2 @@
-export * from './hello'
+export * from './encode'
+export * from './verify'
