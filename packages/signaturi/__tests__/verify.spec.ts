@@ -2,7 +2,7 @@ import { ACCOUNT1, ACCOUNT2, ACCOUNT3, CONTENT } from "./helper"
 import { verifySignaturiMessage } from "../src/verify"
 
 describe('verifySignaturiMessage', () => {
-    it('valid result if all signatures are good', async () => {
+    it('valid result if at least one good signature and no bad ones', async () => {
         const result = verifySignaturiMessage({
             message: {
                 content: CONTENT,
@@ -20,22 +20,56 @@ describe('verifySignaturiMessage', () => {
             version: '1',
         })
         expect(result).toStrictEqual({
+            'isValid': true,
+            'message': 'Success: 2 signatures match.',
             'signatures': [
                 {
                     'result': 'good',
                 },
                 {
-                    'result': 'good',
+                    'result': 'missing',
                 },
                 {
                     'result': 'good',
                 },
             ],
-            'valid': true,
+        })
+    })
+
+    it('invalid result if all signatures are missing', async () => {
+        const result = verifySignaturiMessage({
+            message: {
+                content: CONTENT,
+                accounts: [
+                    ACCOUNT1,
+                    ACCOUNT2,
+                    ACCOUNT3,
+                ],
+            },
+            signatures: [
+                null,
+                null,
+                null,
+            ],
+            version: '1',
+        })
+        expect(result).toStrictEqual({
+            'isValid': false,
+            'message': 'No good signatures found.',
+            'signatures': [
+                {
+                    'result': 'missing',
+                },
+                {
+                    'result': 'missing',
+                },
+                {
+                    'result': 'missing',
+                },
+            ],
         })
     })
 
     // TODO: test mix of good, bad and missing signatures
     // TODO: test all bad signatures
-    // TODO: test all missing signatures
 })

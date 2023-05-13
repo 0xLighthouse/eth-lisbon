@@ -25,7 +25,8 @@ export interface InputMessage {
 }
 
 export interface Result {
-    valid: boolean,
+    isValid: boolean,
+    message: string,
     // signature results will match EncodedMessage.signatures 1:1
     signatures: SignatureResult[],
 }
