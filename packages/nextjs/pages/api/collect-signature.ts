@@ -1,5 +1,4 @@
-import { createClient } from "@vercel/postgres";
-import { generateName } from "~~/lib/generateName";
+import { getClient } from "~~/lib/getClient";
 
 export default async function handler(req, res) {
   console.log('Collect signature')
@@ -7,7 +6,7 @@ export default async function handler(req, res) {
   const payload = req.body;
 
   console.log('body', payload)
-  const client = createClient();
+  const client = getClient()
   await client.connect();
 
   // --- fetch the record
@@ -42,8 +41,10 @@ export default async function handler(req, res) {
         title = $2`, [JSON.stringify(feedItem.authors), payload.id]);
 
     console.log(feedItem);
+    await client.end()
     return res.status(200).json({ record: feedItem });
   } catch (err) {
-    console.log(err);
+    await client.end()
+    return res.status(400).json(err);
   }
 }

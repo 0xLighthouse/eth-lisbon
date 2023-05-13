@@ -1,9 +1,7 @@
-import { createClient } from "@vercel/postgres";
+import { getClient } from "~~/lib/getClient";
 
 export default async function handler(req, res) {
-  const client = createClient({
-    // your database configuration
-  });
+  const client = getClient();
   await client.connect();
 
   const { id } = req.query;

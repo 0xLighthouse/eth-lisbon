@@ -1,8 +1,8 @@
-import { createClient } from "@vercel/postgres";
 import { generateName } from "~~/lib/generateName";
+import { getClient } from "~~/lib/getClient";
 
 export default async function handler(req, res) {
-  const client = createClient();
+  const client = getClient()
   await client.connect();
 
   try {
@@ -16,8 +16,10 @@ export default async function handler(req, res) {
     }, ${JSON.stringify(bodyResp.authors)}) RETURNING *;`;
 
     console.log(resp);
+    await client.end()
     return res.status(201).json({ name });
   } catch (err) {
-    console.log(err);
+    await client.end()
+    return res.status(400).json(err);
   }
 }
