@@ -1,57 +1,80 @@
+import { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
+import { Avatar, Box, Card, Container, Flex, Group, Tabs, Text } from "@mantine/core";
+import { IconCloudLockOpen, IconNewSection } from "@tabler/icons-react";
 import type { NextPage } from "next";
-import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { useAccount } from "wagmi";
+import { AddNewAdress } from "~~/components/AddAddressModal";
+import { DropdownMenu } from "~~/components/Drodown";
+import { StepperComponent } from "~~/components/Stepper";
 
 const Home: NextPage = () => {
+  const account = useAccount();
+  const [isOpenedModal, setIsOpenedModal] = useState(false);
+  console.log(account);
   return (
     <>
       <Head>
         <title>Scaffold-ETH 2 App</title>
         <meta name="description" content="Created with 🏗 scaffold-eth-2" />
       </Head>
+      <Container size={"xxl"} py={"xl"}>
+        <Tabs defaultValue="gallery" fz="lg">
+          <Tabs.List>
+            <Tabs.Tab value="gallery" fz={"lg"} icon={<IconNewSection size="1.4rem" />}>
+              Create
+            </Tabs.Tab>
+            <Tabs.Tab value="messages" fz={"lg"} icon={<IconCloudLockOpen size="1.4rem" />}>
+              Verify
+            </Tabs.Tab>
+          </Tabs.List>
 
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/nextjs/pages/index.tsx</code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract <code className="italic bg-base-300 text-base font-bold">YourContract.sol</code> in{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/hardhat/contracts</code>
-          </p>
-        </div>
+          {/* -------------------Create -------------------*/}
+          <Tabs.Panel value="gallery" pt="xs">
+            {/* List of addresses */}
+            <Group align="start">
+              <Flex direction={"column"} gap={"xs"}>
+                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                  <Flex direction={"row"} align={"center"} gap={"sm"}>
+                    1
+                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
+                    <Text size={"sm"}>{account.address}</Text>
+                  </Flex>
+                </Card>
+                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                  <Flex direction={"row"} align={"center"} gap={"sm"}>
+                    2
+                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
+                    <Text size={"sm"}>{account.address}</Text>
+                  </Flex>
+                </Card>
+                <Card p={"xs"} shadow="xs" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                  <Flex direction={"row"} align={"center"} gap={"sm"}>
+                    3
+                    <Avatar src={`https://cdn.stamp.fyi/avatar/${account.address}`} size={"sm"} />
+                    <Text size={"sm"}>{account.address}</Text>
+                  </Flex>
+                </Card>
+              </Flex>
 
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contract
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <SparklesIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Experiment with{" "}
-                <Link href="/example-ui" passHref className="link">
-                  Example UI
-                </Link>{" "}
-                to build your own UI.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+              {/* Authors add new  */}
+              <Flex direction={"column"}>
+                <Text>Authors</Text>
+                <DropdownMenu onClick={() => setIsOpenedModal(true)} />
+              </Flex>
+            </Group>
+            <Box></Box>
+            <StepperComponent />
+          </Tabs.Panel>
+
+          {/* -------------------Verify -------------------*/}
+
+          <Tabs.Panel value="messages" pt="xs">
+            Messages tab content
+          </Tabs.Panel>
+        </Tabs>
+        <AddNewAdress isOpened={isOpenedModal} onClose={() => setIsOpenedModal(false)} />
+      </Container>
     </>
   );
 };
