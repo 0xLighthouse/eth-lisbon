@@ -41,10 +41,8 @@ export default async function handler(req, res) {
         title = $2`, [JSON.stringify(feedItem.authors), payload.id]);
 
     console.log(feedItem);
-    await client.end()
     return res.status(200).json({ record: feedItem });
   } catch (err) {
     console.log(err)
-    await client.end()
   }
 }

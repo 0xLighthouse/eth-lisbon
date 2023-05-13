@@ -16,10 +16,8 @@ export default async function handler(req, res) {
     }, ${JSON.stringify(bodyResp.authors)}) RETURNING *;`;
 
     console.log(resp);
-    await client.end()
     return res.status(201).json({ name });
   } catch (err) {
     console.log(err)
-    await client.end()
   }
 }
