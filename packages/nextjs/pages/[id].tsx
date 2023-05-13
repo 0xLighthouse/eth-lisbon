@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { createSignaturiMessage, encodeMessage } from "@0xlighthouse/signaturi";
+import { encodeMessage } from "../lib/signaturi";
 import { Button, Container, Title } from "@mantine/core";
 import { signTypedData } from "@wagmi/core";
 import { ethers } from "ethers";
@@ -13,13 +13,10 @@ function ItemPage() {
   const [item, setItem] = useState(null);
 
   const handleSignedType = async () => {
-    console.log("signPayload");
-    console.log(signPayload);
     signPayload.domain.chainId = 1;
     signPayload.value = signPayload.message;
-
     const signature = await signTypedData(signPayload);
-    console.log(signature);
+    // TODO: send signature to API
   };
 
   useEffect(() => {
