@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   await client.connect();
 
   try {
-    const resp = await client.sql`SELECT * FROM feed LIMIT 100`;
+    const resp = await client.sql`SELECT * FROM feed ORDER BY created_at DESC LIMIT 100`;
     return res.status(200).json({
       data: resp.rows,
       count: resp.rowCount,
