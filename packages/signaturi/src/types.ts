@@ -22,3 +22,14 @@ export interface InputMessage {
     /// EVM accounts that are eligible to
     accounts: Account[],
 }
+
+export interface Result {
+    valid: boolean,
+    // signature results will match EncodedMessage.signatures 1:1
+    signatures: SignatureResult[],
+}
+
+export interface SignatureResult {
+    result: 'good' | 'bad' | 'missing'
+    error?: string,
+}
