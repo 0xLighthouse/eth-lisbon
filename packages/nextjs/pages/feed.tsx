@@ -1,64 +1,23 @@
-import { Avatar, Badge, Card, Container, Flex, Grid, Group, Text, Title } from "@mantine/core";
+import { Badge, Box, Card, Container, Flex, Group, Text, Title } from "@mantine/core";
+import { GetServerSideProps } from "next";
+import { timeAgo } from "~~/utils/scaffold-eth/timeAgo";
 
-const FeedPage = () => {
-  const feedItems = [
-    {
-      id: 1,
-      address: "0x1234",
-      title: "Welcome team 1",
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laborum autem asperiores ",
-      status: "signed",
-      authors: [
-        { signature: "1234", accountAddress: "0x0x1", source: "Metamask", status: "Signed" },
-        { signature: "12345", accountAddress: "0x0x2", source: "Safe", status: "Not signed" },
-        { signature: "12346", accountAddress: "0x0x3", source: "Ledger", status: "Signed" },
-      ],
-    },
-    {
-      id: 2,
-      address: "0x12345",
-      title: "Welcome team 2",
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laborum autem asperiores ",
-      status: "declined",
-      authors: [
-        { signature: "a1", accountAddress: "0x0x1", source: "Metamask", status: "Not signed" },
-        { signature: "a2", accountAddress: "0x0x2", source: "Safe", status: "Not signed" },
-        { signature: "a3", accountAddress: "0x0x3", source: "Ledger", status: "Signed" },
-      ],
-    },
-    {
-      id: 3,
-      address: "0x123456",
-      title: "Welcome team 3",
-      status: "signed",
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laborum autem asperiores ",
-      authors: [
-        { signature: "b1", accountAddress: "0x1x1", source: "Metamask", status: "Signed" },
-        { signature: "b2", accountAddress: "0x1x2", source: "Safe", status: "Not signed" },
-        { signature: "b3", accountAddress: "0x1x3", source: "Ledger", status: "Signed" },
-      ],
-    },
-    {
-      id: 4,
-      address: "0x123456",
-      title: "Welcome team 4",
-      status: "pending",
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe laborum autem asperiores ",
-      authors: [
-        { signature: "b1", accountAddress: "0x1x1", source: "Metamask", status: "Signed" },
-        { signature: "b2", accountAddress: "0x1x2", source: "Safe", status: "Not signed" },
-        { signature: "b3", accountAddress: "0x1x3", source: "Ledger", status: "Signed" },
-      ],
-    },
-  ];
-
+const FeedPage = ({ feedItems }) => {
+  console.log(feedItems);
   return (
     <Container>
-      <Title order={4}>Feed</Title>
-      <Grid>
+      <Title order={2}>Feed</Title>
+      <Flex direction={"column"} gap={"xl"}>
         {feedItems.map(item => (
-          <Grid.Col key={item.id} span={6} mt={"sm"}>
-            <Card shadow="md">
+          <Flex direction={"row"} key={item.id} mt="sm" gap={"sm"} sx={{ position: "relative" }}>
+            <Flex direction={"column"} miw={"30%"} sx={{ textAlign: "end" }} mt={"sm"}>
+              <Text size={"sm"} sx={{ lineHeight: 1 }}>
+                {item.title}
+              </Text>
+              <Text size={"xs"}>{timeAgo(item.created_at)}</Text>
+            </Flex>
+
+            <Card shadow="xs" miw={"100%"}>
               <Flex direction={"column"} gap={"sm"}>
                 <Group>
                   <Text size={"md"} sx={{ lineHeight: 1 }}>
@@ -69,25 +28,38 @@ const FeedPage = () => {
                   </Badge>
                 </Group>
                 <Text size={"sm"}>{item.content}</Text>
-                <Group spacing={"xs"}>
+                {/* <Group spacing={"xs"}>
                   {item.authors.map(author => (
                     <Avatar
                       key={author.accountAddress}
                       src={`https://cdn.stamp.fyi/avatar/${item.address}`}
                       size={"md"}
                       radius={"xl"}
-                      sx={{ border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red" }}
-                    />
-                  ))}
-                </Group>
+                      sx={{
+                          border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red",
+                        }}
+                        />
+                        ))}
+                    </Group> */}
                 <Text>{item.address}</Text>
               </Flex>
             </Card>
-          </Grid.Col>
+            <Box sx={{ position: "absolute" }}></Box>
+          </Flex>
         ))}
-      </Grid>
+      </Flex>
     </Container>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // Fetch data from API endpoint
+  const res = await fetch("http://localhost:3000/api/feed");
+  const data = await res.json();
+  console.log(data);
+
+  // Return the data as props
+  return { props: { feedItems: data.data } };
 };
 
 export default FeedPage;
