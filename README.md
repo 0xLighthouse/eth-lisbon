@@ -4,30 +4,30 @@
 
 ⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, and Typescript.
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+* ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
+* 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
+* 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
 
 ## Contents
 
-- [Requirements](#requirements)
-- [Quickstart](#quickstart)
-- [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
-- [Deploying your NextJS App](#deploying-your-nextjs-app)
-- [Interacting with your Smart Contracts: SE-2 Custom Hooks](#interacting-with-your-smart-contracts-se-2-custom-hooks)
-- [Disabling Type & Linting Error Checks](#disabling-type-and-linting-error-checks)
-  - [Disabling commit checks](#disabling-commit-checks)
-  - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
-  - [Disabling Github Workflow](#disabling-github-workflow)
-- [Contributing to Scaffold-ETH 2](#contributing-to-scaffold-eth-2)
+* [Requirements](#requirements)
+* [Quickstart](#quickstart)
+* [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
+* [Deploying your NextJS App](#deploying-your-nextjs-app)
+* [Interacting with your Smart Contracts: SE-2 Custom Hooks](#interacting-with-your-smart-contracts-se-2-custom-hooks)
+* [Disabling Type & Linting Error Checks](#disabling-type-and-linting-error-checks)
+  + [Disabling commit checks](#disabling-commit-checks)
+  + [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
+  + [Disabling Github Workflow](#disabling-github-workflow)
+* [Contributing to Scaffold-ETH 2](#contributing-to-scaffold-eth-2)
 
 ## Requirements
 
 Before you begin, you need to install the following tools:
 
-- [Node (v18 LTS)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+* [Node (v18 LTS)](https://nodejs.org/en/download/)
+* Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
+* [Git](https://git-scm.com/downloads)
 
 ## Quickstart
 
@@ -47,7 +47,7 @@ yarn install
 yarn chain
 ```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts` .
 
 3. On a second terminal, deploy the test contract:
 
@@ -63,13 +63,13 @@ This command deploys a test smart contract to the local network. The contract is
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the contract component or the example ui in the frontend. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit your app on: `http://localhost:3000` . You can interact with your smart contract using the contract component or the example ui in the frontend. You can tweak the app config in `packages/nextjs/scaffold.config.ts` .
 
 Run smart contract test with `yarn hardhat:test`
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend in `packages/nextjs/pages`
-- Edit your deployment scripts in `packages/hardhat/deploy`
+* Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+* Edit your frontend in `packages/nextjs/pages`
+* Edit your deployment scripts in `packages/hardhat/deploy`
 
 ## Deploying your Smart Contracts to a Live Network
 
@@ -77,9 +77,9 @@ Once you are ready to deploy your smart contracts, there are a few things you ne
 
 1. Select the network
 
-By default, `yarn deploy` will deploy the contract to the local network. You can change the defaultNetwork in `packages/hardhat/hardhat.config.ts.` You could also simply run `yarn deploy --network target_network` to deploy to another network.
+By default,   `yarn deploy`  will deploy the contract to the local network. You can change the defaultNetwork in  `packages/hardhat/hardhat.config.ts.` You could also simply run  `yarn deploy --network target_network`  to deploy to another network.
 
-Check the `hardhat.config.ts` for the networks that are pre-configured. You can also add other network settings to the `hardhat.config.ts file`. Here are the [Alchemy docs](https://docs.alchemy.com/docs/how-to-add-alchemy-rpc-endpoints-to-metamask) for information on specific networks.
+Check the  `hardhat.config.ts`  for the networks that are pre-configured. You can also add other network settings to the  `hardhat.config.ts file` . Here are the [Alchemy docs](https://docs.alchemy.com/docs/how-to-add-alchemy-rpc-endpoints-to-metamask) for information on specific networks.
 
 Example: To deploy the contract to the Sepolia network, run the command below:
 
@@ -96,7 +96,7 @@ DEPLOYER_PRIVATE_KEY=""
 
 The deployer account is the account that will deploy your contracts. Additionally, the deployer account will be used to execute any function calls that are part of your deployment script.
 
-You can generate a random account / private key with `yarn generate` or add the private key of your crypto wallet. `yarn generate` will create a random account and add the DEPLOYER_PRIVATE_KEY to the .env file. You can check the generated account with `yarn account`.
+You can generate a random account / private key with  `yarn generate`  or add the private key of your crypto wallet.  `yarn generate`  will create a random account and add the DEPLOYER_PRIVATE_KEY to the .env file. You can check the generated account with  `yarn account` .
 
 3. Deploy your smart contract(s)
 
@@ -116,26 +116,26 @@ yarn verify --network network_name
 
 ## Deploying your NextJS App
 
-**Hint**: We recommend connecting your GitHub repo to Vercel (through the Vercel UI) so it gets automatically deployed when pushing to `main`.
+**Hint**: We recommend connecting your GitHub repo to Vercel (through the Vercel UI) so it gets automatically deployed when pushing to `main` .
 
 If you want to deploy directly from the CLI, run `yarn vercel` and follow the steps to deploy to Vercel. Once you log in (email, github, etc), the default options should work. It'll give you a public URL.
 
-If you want to redeploy to the same production URL you can run `yarn vercel --prod`. If you omit the `--prod` flag it will deploy it to a preview/test URL.
+If you want to redeploy to the same production URL you can run `yarn vercel --prod` . If you omit the `--prod` flag it will deploy it to a preview/test URL.
 
 **Make sure your `packages/nextjs/scaffold.config.ts` file has the values you need.**
 
 ## Interacting with your Smart Contracts: SE-2 Custom Hooks
 
-Scaffold-ETH 2 provides a collection of custom React hooks designed to simplify interactions with your deployed smart contracts. These hooks are wrappers around `wagmi`, automatically loading the necessary contract ABI and address. They offer an easy-to-use interface for reading from, writing to, and monitoring events emitted by your smart contracts.
+Scaffold-ETH 2 provides a collection of custom React hooks designed to simplify interactions with your deployed smart contracts. These hooks are wrappers around `wagmi` , automatically loading the necessary contract ABI and address. They offer an easy-to-use interface for reading from, writing to, and monitoring events emitted by your smart contracts.
 
 To help developers get started with smart contract interaction using Scaffold-ETH 2, we've provided the following custom hooks:
 
-- [useScaffoldContractRead](#usescaffoldcontractread): for reading public variables and getting data from read-only functions of your contract.
-- [useScaffoldContractWrite](#usescaffoldcontractwrite): for sending transactions to your contract to write data or perform an action.
-- [useScaffoldEventSubscriber](#usescaffoldeventsubscriber): for subscribing to your contract events and receiving real-time updates when events are emitted.
-- [useScaffoldEventHistory](#usescaffoldeventhistory): for retrieving historical event logs for your contract, providing past activity data.
-- [useDeployedContractInfo](#usedeployedcontractinfo): for fetching details from your contract, including the ABI and address.
-- [useScaffoldContract](#usescaffoldcontract): for obtaining a contract instance that lets you interact with the methods of your deployed smart contract.
+* [useScaffoldContractRead](#usescaffoldcontractread): for reading public variables and getting data from read-only functions of your contract.
+* [useScaffoldContractWrite](#usescaffoldcontractwrite): for sending transactions to your contract to write data or perform an action.
+* [useScaffoldEventSubscriber](#usescaffoldeventsubscriber): for subscribing to your contract events and receiving real-time updates when events are emitted.
+* [useScaffoldEventHistory](#usescaffoldeventhistory): for retrieving historical event logs for your contract, providing past activity data.
+* [useDeployedContractInfo](#usedeployedcontractinfo): for fetching details from your contract, including the ABI and address.
+* [useScaffoldContract](#usescaffoldcontract): for obtaining a contract instance that lets you interact with the methods of your deployed smart contract.
 
 These hooks offer a simplified and streamlined interface for interacting with your smart contracts. If you need to interact with external contracts, you can use `wagmi` directly, or add external contract data to your `deployedContracts.ts` file.
 
@@ -175,7 +175,7 @@ To send the transaction, you can call the `writeAsync` function returned by the 
 </button>
 ```
 
-This example sends a transaction to the `YourContract` smart contract to call the `setGreeting` function with the arguments passed in `args`. The `writeAsync` function sends the transaction to the smart contract, and the `isLoading` and `isMining` properties indicate whether the transaction is currently being processed by the network.
+This example sends a transaction to the `YourContract` smart contract to call the `setGreeting` function with the arguments passed in `args` . The `writeAsync` function sends the transaction to the smart contract, and the `isLoading` and `isMining` properties indicate whether the transaction is currently being processed by the network.
 
 ### useScaffoldEventSubscriber:
 
@@ -235,7 +235,7 @@ This example retrieves the details of the deployed contract with the specified n
 ### useScaffoldContract:
 
 Use this hook to get your contract instance by providing the contract name. It enables you interact with your contract methods.
-For reading data or sending transactions, it's recommended to use `useScaffoldContractRead` and `useScaffoldContractWrite`.
+For reading data or sending transactions, it's recommended to use `useScaffoldContractRead` and `useScaffoldContractWrite` .
 
 ```ts
 const { data: yourContract } = useScaffoldContract({
@@ -289,14 +289,8 @@ yarn vercel:yolo
 
 If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR` to `true` in a [environment variable](https://vercel.com/docs/concepts/projects/environment-variables).
 
-### Disabling Github Workflow
-
-We have github workflow setup checkout `.github/workflows/lint.yaml` which runs types and lint error checks every time code is **pushed** to `main` branch or **pull request** is made to `main` branch
-
-To disable it, **delete `.github` directory**
-
 ## Contributing to Scaffold-ETH 2
 
 We welcome contributions to Scaffold-ETH 2!
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+Please see [CONTRIBUTING. MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.

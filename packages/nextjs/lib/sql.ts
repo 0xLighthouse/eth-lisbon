@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import { generateName } from "./generateName";
 
 export const fetchFeed = async () => {
     const { rows } = await sql`SELECT * FROM feed;`;
