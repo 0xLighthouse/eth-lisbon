@@ -33,5 +33,4 @@ export interface Result {
 
 export interface SignatureResult {
     result: 'good' | 'bad' | 'missing'
-    error?: string,
 }

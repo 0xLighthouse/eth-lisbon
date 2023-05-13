@@ -2,19 +2,17 @@ import { verifyTypedData } from "ethers/lib/utils"
 import { EIP712_DOMAIN, EIP712_TYPES } from "./constants"
 import { EncodedMessage, InputMessage, Result, SignatureResult } from "./types"
 
-function checkSignature(input: InputMessage, signature: string | null, index: number): SignatureResult {
+function checkSignature(
+    input: InputMessage, signature: string | null, index: number
+): SignatureResult {
     if (signature === null) {
         return { result: 'missing' }
     }
     const address = verifyTypedData(EIP712_DOMAIN, EIP712_TYPES, input, signature)
     const expectedAddress = input.accounts[index].account
     if (address.toLowerCase() !== expectedAddress.toLowerCase()) {
-        return {
-            result: 'bad',
-            error: `Signature #${index+1} belongs to account ${address} which doesn't match the expected account ${expectedAddress}.`,
-        }
+        return { result: 'bad' }
     }
-    // TODO: check each signature matches message
     return { result: 'good' }
 }
 
@@ -25,7 +23,7 @@ function calculateValidity(results: SignatureResult[]): { isValid: boolean, mess
         if (result.result === 'bad') {
             return {
                 isValid: false,
-                message: result.error ?? 'Bad signature #${i+1}',
+                message: `Bad signature #${i+1}.`,
             }
         } else if (result.result === 'good') {
             good += 1
