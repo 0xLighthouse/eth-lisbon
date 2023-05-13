@@ -53,8 +53,7 @@ const Home = ({ feedItems }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // Fetch data from API endpoint
-  const res = await fetch("http://localhost:3000/api/feed");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/feed`);
   const data = await res.json();
   console.log(data);
 
