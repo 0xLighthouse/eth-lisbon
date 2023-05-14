@@ -63,8 +63,8 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
 
   return (
     <Grid mt={"md"}>
-      <Grid.Col span={4}>
-        <Text size={"md"}>{item.content} </Text>
+      <Grid.Col span={6}>
+        <Text size={"sm"}>{item.content} </Text>
         <Grid>
           <Grid.Col span={"auto"}>
             <Badge mt={"sm"} size={"lg"} color={verifyResult.isValid ? "green" : "red"}>
@@ -76,7 +76,7 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
           Reload
         </Button>
       </Grid.Col>
-      <Grid.Col span={"auto"} ml={"sm"}>
+      <Grid.Col span={4} ml={"sm"}>
         <Grid>
           <Grid.Col span={"auto"}>
             <List>
@@ -98,7 +98,7 @@ const SignatureResultz = ({ verifyResult, item }: SignatureResultProps) => {
   return (
     <Card shadow="xs" withBorder radius={"lg"}>
       {item.authors.map((a, i) => (
-        <Group key={i} mt={"xs"}>
+        <Group key={i} mt={"xs"} align="center">
           <List.Item
             fz={"sm"}
             icon={
