@@ -6,8 +6,7 @@ import { Result } from "~~/lib/signaturi/types";
 
 interface VerifyItemProps {
   id: string;
-  setIsValid: (v: boolean) => void;
-  s;
+  setIsValid?: (v: boolean) => void;
 }
 
 function VerifyItem({ id, setIsValid }: VerifyItemProps) {
@@ -46,7 +45,9 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
       console.log("verifyResult");
       console.log(verifyResult);
       setVerifyResult(verifyResult);
-      setIsValid(verifyResult.isValid);
+      if (setIsValid) {
+        setIsValid(verifyResult.isValid);
+      }
     }
   }, [item]);
 
