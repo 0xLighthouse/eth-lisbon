@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import VerifyItem from "./VerifyItem";
 import {
   Avatar,
@@ -36,6 +37,10 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
   const [createdAnnouncement, setCreatedAnnouncement] = useState("");
   const [isValid, setIsValid] = useState(false);
 
+  const router = useRouter();
+
+  const [isPublished, setPublished] = useState(false);
+
   const shortenString = (str: string) => {
     const length = str.length;
     const firstFive = str.slice(0, 7);
@@ -62,6 +67,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
         "Content-Type": "application/json",
       },
     });
+    setPublished(true);
   };
 
   const handleCreate = async () => {
@@ -206,15 +212,22 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
       </Stepper>
 
       <Group position="center" m={`lg`}>
-        <Button
-          variant={"light"}
-          onClick={handleNext}
-          disabled={(active == 0 && !bodyValue) || (active == 3 && !isValid)}
-          size={"md"}
-          uppercase
-        >
-          {active == 3 ? "Publish" : "Next"}
-        </Button>
+        {!isPublished && (
+          <Button
+            variant={"light"}
+            onClick={handleNext}
+            disabled={(active == 0 && !bodyValue) || (active == 3 && !isValid)}
+            size={"md"}
+            uppercase
+          >
+            {active == 3 && !isPublished ? "Publish" : active == 3 && !isPublished ? "Published" : "Next"}
+          </Button>
+        )}
+        {isPublished && (
+          <Button variant="outline" onClick={() => router.push("/")}>
+            Go to feed
+          </Button>
+        )}
       </Group>
     </>
   );

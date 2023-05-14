@@ -67,7 +67,7 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
         <Text size={"md"}>{item.content} </Text>
         <Grid>
           <Grid.Col span={"auto"}>
-            <Badge mt={"sm"} size={"lg"} color={verifyResult.isValid ? "blue" : "red"}>
+            <Badge mt={"sm"} size={"lg"} color={verifyResult.isValid ? "green" : "red"}>
               {verifyResult.isValid ? "Ready for publishing" : "Not verified"}
             </Badge>
           </Grid.Col>
