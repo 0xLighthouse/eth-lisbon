@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { encodeMessage } from "../../lib/signaturi";
-import { Button, Center, Container, Grid, Text, Title } from "@mantine/core";
+import { Button, Center, Container, Grid, Text } from "@mantine/core";
 import { IconShieldCheckered } from "@tabler/icons-react";
 import { signTypedData } from "@wagmi/core";
-import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 
 function ItemPage() {
@@ -13,7 +12,6 @@ function ItemPage() {
 
   const [signPayload, setSignPayload] = useState(null);
   const [item, setItem] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
 
   const account = useAccount();
   const [isSigned, setIsSigned] = useState(false);
@@ -39,12 +37,8 @@ function ItemPage() {
       },
     });
     const data = await response.json();
-<<<<<<< Updated upstream
-    setSubmitted(true);
-=======
     setIsSigned(true);
 
->>>>>>> Stashed changes
     console.log(data);
   };
 
