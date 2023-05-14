@@ -78,14 +78,7 @@ function ItemPage() {
           <Title order={5}>{item.title}</Title>
         </Grid.Col>
       </Grid>
-      <Grid mt={"sm"}>
-        <Grid.Col span={4}>
-          <Title order={4}>Status</Title>
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <Title order={5}>{item.status}</Title>
-        </Grid.Col>
-      </Grid>
+
       <Grid mt={"sm"}>
         <Grid.Col span={4}>
           <Title order={4}>Content</Title>

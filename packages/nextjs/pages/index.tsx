@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Avatar, Badge, Box, Card, Container, Flex, Group, Text, Title, Tooltip } from "@mantine/core";
 import { GetServerSideProps } from "next";
 import { timeAgo } from "~~/utils/scaffold-eth/timeAgo";
@@ -14,13 +15,15 @@ const Home = ({ feedItems }) => {
           .map(item => (
             <Flex direction={"row"} key={item.id} mt="xs" gap={"md"} sx={{ position: "relative" }}>
               <Flex direction={"column"} miw={"30%"} sx={{ textAlign: "start" }} mt={"sm"} gap={"sm"} align={"start"}>
-                <Text size={"sm"} sx={{ lineHeight: 1 }}>
-                  {item.title}
-                </Text>
+                <Link href={`${process.env.NEXT_PUBLIC_APP_URI}/${item.title}`}>
+                  <Text size={"sm"} sx={{ lineHeight: 1 }} underline>
+                    {item.title}
+                  </Text>
+                </Link>
 
                 <Text size={"xs"}>{timeAgo(item.created_at)}</Text>
-                <Badge color={item.status == "signed" ? "green" : item.status == "pending" ? "yellow" : "red"}>
-                  {item.status}
+                <Badge color={item.published_at ? "green" : "yellow"}>
+                  {item.published_at ? "Published" : "Pending"}
                 </Badge>
               </Flex>
 
@@ -35,7 +38,7 @@ const Home = ({ feedItems }) => {
                           size={"lg"}
                           radius={"xl"}
                           sx={{
-                            border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red",
+                            border: author.signature ? "3px solid #00fa03" : "3px solid red",
                           }}
                         />
                       </Tooltip>

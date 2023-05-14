@@ -6,7 +6,7 @@ function ItemPage() {
   const router = useRouter();
   const { id } = router.query;
   return (
-    <Container>
+    <Container mt="md" w={"80%"}>
       <VerifyItem id={id} />
     </Container>
   );

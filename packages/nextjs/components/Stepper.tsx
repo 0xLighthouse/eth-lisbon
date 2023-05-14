@@ -1,4 +1,5 @@
 import { useState } from "react";
+import VerifyItem from "./VerifyItem";
 import {
   Avatar,
   Badge,
@@ -33,6 +34,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
   const [authorsList, setAuthorsList] = useState([{ address: account.address, name: "" }]);
   const [name, setName] = useState("");
   const [createdAnnouncement, setCreatedAnnouncement] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
   const shortenString = (str: string) => {
     const length = str.length;
@@ -43,7 +45,9 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
 
   const handleNext = () => {
     if (active == 1) {
-      handlePublish();
+      handleCreate();
+    }
+    if (active == 3) {
     }
     nextStep();
   };
@@ -61,11 +65,26 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
         "Content-Type": "application/json",
       },
     });
+  };
+
+  const handleCreate = async () => {
+    const requestBody = {
+      authors: authorsList,
+      titleValue,
+      bodyValue,
+    };
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/create`, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     if (data) {
       setCreatedAnnouncement(data.name);
     }
-    console.log(data);
+    setTitleValue(data.name);
   };
 
   return (
@@ -93,7 +112,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
           <Grid mt={"sm"}>
             <Grid.Col span={7}>
               <Card withBorder sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                <Text size={`xs`}>{bodyValue}</Text>
+                <Text size={`md`}>{bodyValue}</Text>
               </Card>
             </Grid.Col>
             <Grid.Col span={5}>
@@ -104,7 +123,9 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                       <Avatar src={`https://cdn.stamp.fyi/avatar/${auth}`} size={"sm"} />
                       <Text size={"sm"}>{shortenString(auth.address)}</Text>
                     </Flex>
-                    <Text size={`xs`} transform={`uppercase`}>{auth.name}</Text>
+                    <Text size={`xs`} transform={`uppercase`}>
+                      {auth.name}
+                    </Text>
                   </Flex>
                 ))}
 
@@ -141,11 +162,14 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                     </>
                   )}
                   {!isShown && (
-                    <Button variant="default" onClick={() => {
-                      setName('')
-                      setNewAddress('')
-                      setIsShown(true)
-                    }}>
+                    <Button
+                      variant="default"
+                      onClick={() => {
+                        setName("");
+                        setNewAddress("");
+                        setIsShown(true);
+                      }}
+                    >
                       Add address
                     </Button>
                   )}
@@ -154,13 +178,12 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
             </Grid.Col>
           </Grid>
         </Stepper.Step>
-        <Stepper.Step label="Share" description="Share">
+        <Stepper.Step label="Publish" description="Post your content">
           {createdAnnouncement !== "" ? (
             <>
               <Center sx={{ flexDirection: "column" }} p={`lg`}>
-                <Text size={`md`} style={{ textAlign: 'center'}}>
-                  Your content is ready to be signed.
-                  Share the following URL with your signers.
+                <Text size={`md`} style={{ textAlign: "center" }}>
+                  Your content is ready to be signed. Share the following URL with your signers.
                 </Text>
                 <br />
                 <Badge size={`xl`}>{`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}</Badge>
@@ -178,12 +201,14 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
             <Loader />
           )}
         </Stepper.Step>
-        <Stepper.Completed>Completed, click back button to get to previous step</Stepper.Completed>
+        <Stepper.Completed>
+          <VerifyItem id={titleValue} setIsValid={setIsValid} />
+        </Stepper.Completed>
       </Stepper>
 
       <Group position="center" m={`lg`}>
-        <Button variant={'light'} onClick={handleNext} size={'md'} uppercase>
-          Next
+        <Button variant={"light"} onClick={handleNext} disabled={active == 3 && !isValid} size={"md"} uppercase>
+          {active == 3 ? "Publish" : "Next"}
         </Button>
       </Group>
     </>
