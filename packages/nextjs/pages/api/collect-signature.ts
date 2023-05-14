@@ -8,8 +8,6 @@ export default async function handler(req, res) {
   console.log("body", payload);
   const client = await db.connect();
 
-  await client.connect();
-
   // --- fetch the record
   const resp = await client.query(`SELECT * FROM feed WHERE title = $1 LIMIT 1`, [payload.id]);
   const feedItem = resp.rows[0];
@@ -47,5 +45,4 @@ export default async function handler(req, res) {
   } catch (err) {
     console.log(err);
   }
-  await client.end();
 }
