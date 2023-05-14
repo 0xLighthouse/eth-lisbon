@@ -51,12 +51,6 @@ export const Header = () => {
           Create announcement
         </NavLink>
       </li>
-      <li>
-        <Link href={"/verify"}>
-          <PlusCircleIcon className="h-6 w-6" />
-          Verify
-        </Link>
-      </li>
     </>
   );
 

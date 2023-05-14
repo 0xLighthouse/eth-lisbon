@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Avatar,
+  Badge,
   Button,
   Card,
   Center,
@@ -32,6 +33,13 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
   const [authorsList, setAuthorsList] = useState([{ address: account.address, name: "" }]);
   const [name, setName] = useState("");
   const [createdAnnouncement, setCreatedAnnouncement] = useState("");
+
+  const shortenString = (str: string) => {
+    const length = str.length;
+    const firstFive = str.slice(0, 7);
+    const lastFive = str.slice(length - 7, length);
+    return `${firstFive}.....${lastFive}`;
+  };
 
   const handleNext = () => {
     if (active == 1) {
@@ -89,7 +97,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                   <Flex direction="column" key={auth.address}>
                     <Flex direction={"row"} align={"center"} gap={"sm"} key={auth.address}>
                       <Avatar src={`https://cdn.stamp.fyi/avatar/${auth}`} size={"sm"} />
-                      <Text size={"sm"}>{auth.address}</Text>
+                      <Text size={"sm"}>{shortenString(auth.address)}</Text>
                     </Flex>
 
                     <Text size={"sm"}>{auth.name}</Text>
@@ -141,8 +149,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
               </Flex>
             </Grid.Col>
             <Grid.Col span={5}>
-              <Card p={"md"} shadow="sm" sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                <Text size={"md"}>{titleValue}</Text>
+              <Card withBorder sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                 <Text size={"sm"}>{bodyValue}</Text>
               </Card>
             </Grid.Col>
@@ -156,7 +163,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                 be published.
               </Title>
               <Center sx={{ flexDirection: "column" }}>
-                <Title order={3}>{createdAnnouncement}</Title>
+                <Badge>{`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}</Badge>
 
                 <CopyButton value={`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}>
                   {({ copied, copy }) => (
