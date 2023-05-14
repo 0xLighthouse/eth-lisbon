@@ -18,7 +18,7 @@ const Create: NextPage = () => {
         <title>ETHGlobal Lisbon 2023</title>
         <meta name="description" content="Created with 🏗 scaffold-eth-2" />
       </Head>
-      <Container sx={{ width: "40%" }} mt={"lg"}>
+      <Container sx={{ width: "60%" }} mt={"lg"}>
         {account.address ? (
           <>
             <StepperComponent

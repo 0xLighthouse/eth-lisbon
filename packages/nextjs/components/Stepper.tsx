@@ -92,15 +92,19 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
         <Stepper.Step label="Sign" description="SomeRegistry.sol">
           <Grid mt={"sm"}>
             <Grid.Col span={7}>
+              <Card withBorder sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                <Text size={`xs`}>{bodyValue}</Text>
+              </Card>
+            </Grid.Col>
+            <Grid.Col span={5}>
               <Flex direction={"column"} gap={"xs"}>
                 {authorsList.map(auth => (
-                  <Flex direction="column" key={auth.address}>
+                  <Flex direction="column" key={auth.address} mb={`md`}>
                     <Flex direction={"row"} align={"center"} gap={"sm"} key={auth.address}>
                       <Avatar src={`https://cdn.stamp.fyi/avatar/${auth}`} size={"sm"} />
                       <Text size={"sm"}>{shortenString(auth.address)}</Text>
                     </Flex>
-
-                    <Text size={"sm"}>{auth.name}</Text>
+                    <Text size={`xs`} transform={`uppercase`}>{auth.name}</Text>
                   </Flex>
                 ))}
 
@@ -148,26 +152,22 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                 </Flex>
               </Flex>
             </Grid.Col>
-            <Grid.Col span={5}>
-              <Card withBorder sx={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                <Text size={"sm"}>{bodyValue}</Text>
-              </Card>
-            </Grid.Col>
           </Grid>
         </Stepper.Step>
         <Stepper.Step label="Share" description="Share">
           {createdAnnouncement !== "" ? (
             <>
-              <Title order={4}>
-                Congrats! Your announcement is created. Please share your announcement URL to get it signed and ready to
-                be published.
-              </Title>
-              <Center sx={{ flexDirection: "column" }}>
-                <Badge>{`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}</Badge>
-
+              <Center sx={{ flexDirection: "column" }} p={`lg`}>
+                <Text size={`md`} style={{ textAlign: 'center'}}>
+                  Your content is ready to be signed.
+                  Share the following URL with your signers.
+                </Text>
+                <br />
+                <Badge size={`xl`}>{`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}</Badge>
+                <br />
                 <CopyButton value={`${process.env.NEXT_PUBLIC_APP_URI}/${createdAnnouncement}/sign`}>
                   {({ copied, copy }) => (
-                    <Button color={copied ? "teal" : "blue"} variant="outline" onClick={copy}>
+                    <Button color={copied ? "teal" : "blue"} variant="outline" onClick={copy} uppercase>
                       {copied ? "Copied url" : "Copy url"}
                     </Button>
                   )}
