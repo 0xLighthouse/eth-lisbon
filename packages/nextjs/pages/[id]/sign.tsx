@@ -12,6 +12,8 @@ function ItemPage() {
 
   const [signPayload, setSignPayload] = useState(null);
   const [item, setItem] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+
   const account = useAccount();
 
   /**
@@ -35,7 +37,7 @@ function ItemPage() {
       },
     });
     const data = await response.json();
-
+    setSubmitted(true);
     console.log(data);
   };
 
@@ -100,8 +102,8 @@ function ItemPage() {
         </Grid.Col>
       </Grid>
       <Center>
-        <Button variant="outline" mt={"lg"} onClick={() => handleSignedType()}>
-          Sign
+        <Button variant="outline" mt={"lg"} disabled={submitted} onClick={() => handleSignedType()}>
+          {submitted ? "Submitted!" : "Sign"}
         </Button>
       </Center>
     </Container>
