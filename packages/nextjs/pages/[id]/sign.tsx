@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { encodeMessage } from "../../lib/signaturi";
-import { Button, Center, Container, Grid, Title } from "@mantine/core";
+import { Button, Center, Container, Grid, Text, Title } from "@mantine/core";
+import { IconShieldCheckered } from "@tabler/icons-react";
 import { signTypedData } from "@wagmi/core";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
@@ -15,6 +16,7 @@ function ItemPage() {
   const [submitted, setSubmitted] = useState(false);
 
   const account = useAccount();
+  const [isSigned, setIsSigned] = useState(false);
 
   /**
    * Save the signature to the databasegs
@@ -37,7 +39,12 @@ function ItemPage() {
       },
     });
     const data = await response.json();
+<<<<<<< Updated upstream
     setSubmitted(true);
+=======
+    setIsSigned(true);
+
+>>>>>>> Stashed changes
     console.log(data);
   };
 
@@ -74,36 +81,42 @@ function ItemPage() {
     <Container>
       <Grid mt="lg">
         <Grid.Col span={4}>
-          <Title order={4}>Title</Title>
+          <Text size={"md"}>Title</Text>
         </Grid.Col>
         <Grid.Col span={8}>
-          <Title order={5}>{item.title}</Title>
+          <Text size={"sm"}>{item.title}</Text>
         </Grid.Col>
       </Grid>
 
       <Grid mt={"sm"}>
         <Grid.Col span={4}>
-          <Title order={4}>Content</Title>
+          <Text size={"md"}>Content</Text>
         </Grid.Col>
         <Grid.Col span={8}>
-          <Title order={5}>{item.content}</Title>
+          <Text size={"sm"}>{item.content}</Text>
         </Grid.Col>
       </Grid>
       <Grid mt={"sm"}>
         <Grid.Col span={4}>
-          <Title order={4}>Authors</Title>
+          <Text size={"md"}>Authors</Text>
         </Grid.Col>
         <Grid.Col span={8}>
-          {item.authors.map(auth => (
-            <Title key={auth.address} order={5}>
+          {item.authors.map((auth, i) => (
+            <Text size={"sm"} key={i}>
               {auth.address}
-            </Title>
+            </Text>
           ))}
         </Grid.Col>
       </Grid>
       <Center>
-        <Button variant="outline" mt={"lg"} disabled={submitted} onClick={() => handleSignedType()}>
-          {submitted ? "Submitted!" : "Sign"}
+        <Button
+          variant="outline"
+          color={isSigned ? "green" : "blue"}
+          mt={"lg"}
+          rightIcon={isSigned && <IconShieldCheckered />}
+          onClick={() => handleSignedType()}
+        >
+          {isSigned ? "Signed" : "Sign"}
         </Button>
       </Center>
     </Container>
