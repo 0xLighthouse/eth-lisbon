@@ -206,7 +206,13 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
       </Stepper>
 
       <Group position="center" m={`lg`}>
-        <Button variant={"light"} onClick={handleNext} disabled={active == 3 && !isValid} size={"md"} uppercase>
+        <Button
+          variant={"light"}
+          onClick={handleNext}
+          disabled={(active == 0 && !bodyValue) || (active == 3 && !isValid)}
+          size={"md"}
+          uppercase
+        >
           {active == 3 ? "Publish" : "Next"}
         </Button>
       </Group>
