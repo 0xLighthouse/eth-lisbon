@@ -1,9 +1,7 @@
-import { createClient } from "@vercel/postgres";
-import { getClient } from "~~/lib/getClient";
+import { db } from "@vercel/postgres";
 
 export default async function handler(req, res) {
-  const client = getClient()
-  await client.connect();
+  const client = await db.connect();
 
   try {
     const resp = await client.sql`SELECT * FROM feed ORDER BY created_at DESC LIMIT 100`;
@@ -12,6 +10,7 @@ export default async function handler(req, res) {
       count: resp.rowCount,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
+  await client.end();
 }

@@ -1,8 +1,7 @@
-import { getClient } from "~~/lib/getClient";
+import { db } from "@vercel/postgres";
 
 export default async function handler(req, res) {
-  const client = getClient();
-  await client.connect();
+  const client = await db.connect();
 
   const { id } = req.query;
 
@@ -17,6 +16,8 @@ export default async function handler(req, res) {
       error: "Internal server error",
     });
   } finally {
-    console.log('Heya...')
+    await client.end();
+
+    console.log("Heya...");
   }
 }

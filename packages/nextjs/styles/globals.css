@@ -32,10 +32,10 @@ p {
 }
 
 @font-face {
-  font-family: "Bariol";
+  font-family: "Archia";
   font-weight: 400 900;
   font-display: block;
   font-style: normal;
-  font-named-instance: "Bariol";
-  src: url("/fonts/bariol_regular-webfont.woff2") format("woff2");
+  font-named-instance: "Archia";
+  src: url("/fonts/archia-regular-webfont.woff2") format("woff2");
 }

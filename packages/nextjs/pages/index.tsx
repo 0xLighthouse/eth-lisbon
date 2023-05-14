@@ -1,48 +1,46 @@
-import { Avatar, Badge, Box, Card, Container, Flex, Group, Text, Title } from "@mantine/core";
+import { Avatar, Badge, Box, Card, Container, Flex, Group, Text, Title, Tooltip } from "@mantine/core";
 import { GetServerSideProps } from "next";
 import { timeAgo } from "~~/utils/scaffold-eth/timeAgo";
 
 const Home = ({ feedItems }) => {
   return (
-    <Container>
-      <Title order={3}>Feed list</Title>
-      <Flex direction={"column"} gap={"xl"}>
+    <Container w={"70%"}>
+      <Title order={4} my={"lg"}>
+        Feed list
+      </Title>
+      <Flex direction={"column"} gap={"lg"}>
         {feedItems
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .map(item => (
-            <Flex direction={"row"} key={item.id} mt="sm" gap={"sm"} sx={{ position: "relative" }}>
-              <Flex direction={"column"} miw={"30%"} sx={{ textAlign: "end" }} mt={"sm"}>
+            <Flex direction={"row"} key={item.id} mt="xs" gap={"md"} sx={{ position: "relative" }}>
+              <Flex direction={"column"} miw={"30%"} sx={{ textAlign: "start" }} mt={"sm"} gap={"sm"} align={"start"}>
                 <Text size={"sm"} sx={{ lineHeight: 1 }}>
                   {item.title}
                 </Text>
+
                 <Text size={"xs"}>{timeAgo(item.created_at)}</Text>
+                <Badge color={item.status == "signed" ? "green" : item.status == "pending" ? "yellow" : "red"}>
+                  {item.status}
+                </Badge>
               </Flex>
 
-              <Card shadow="xs" miw={"100%"}>
-                <Flex direction={"column"} gap={"sm"}>
-                  <Group>
-                    <Text size={"md"} sx={{ lineHeight: 1 }}>
-                      {item.title}
-                    </Text>
-                    <Badge color={item.status == "signed" ? "green" : item.status == "pending" ? "yellow" : "red"}>
-                      {item.status}
-                    </Badge>
-                  </Group>
+              <Card withBorder radius={"lg"} p={"sm"} miw={"80%"}>
+                <Flex direction={"column"} gap={"lg"}>
                   <Text size={"sm"}>{item.content}</Text>
-                  <Group spacing={"xs"}>
+                  <Group spacing={"md"}>
                     {item.authors.map(author => (
-                      <Avatar
-                        key={author.address}
-                        src={`https://cdn.stamp.fyi/avatar/${author.address}`}
-                        size={"md"}
-                        radius={"xl"}
-                        sx={{
-                          border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red",
-                        }}
-                      />
+                      <Tooltip label={author.address} key={author.address}>
+                        <Avatar
+                          src={`https://cdn.stamp.fyi/avatar/${author.address}`}
+                          size={"lg"}
+                          radius={"xl"}
+                          sx={{
+                            border: author.status == "Signed" ? "3px solid #00fa03" : "3px solid red",
+                          }}
+                        />
+                      </Tooltip>
                     ))}
                   </Group>
-                  <Text>{item.address}</Text>
                 </Flex>
               </Card>
               <Box sx={{ position: "absolute" }}></Box>
