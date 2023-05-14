@@ -57,7 +57,6 @@ const Home = ({ feedItems }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/feed`);
   const data = await res.json();
-  console.log(data);
 
   // Return the data as props
   return { props: { feedItems: data.data } };

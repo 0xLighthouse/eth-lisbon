@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import VerifyItem from "./VerifyItem";
 import {
   Avatar,
@@ -15,7 +16,6 @@ import {
   Text,
   TextInput,
   Textarea,
-  Title,
 } from "@mantine/core";
 import { useAccount } from "wagmi";
 
@@ -36,6 +36,8 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
   const [createdAnnouncement, setCreatedAnnouncement] = useState("");
   const [isValid, setIsValid] = useState(false);
 
+  const router = useRouter();
+
   const shortenString = (str: string) => {
     const length = str.length;
     const firstFive = str.slice(0, 7);
@@ -48,19 +50,16 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
       handleCreate();
     }
     if (active == 3) {
+      handlePublish();
+      router.push("/");
     }
     nextStep();
   };
 
   const handlePublish = async () => {
-    const requestBody = {
-      authors: authorsList,
-      titleValue,
-      bodyValue,
-    };
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/create`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/publish`, {
       method: "POST",
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({ id: titleValue }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -202,7 +201,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
           )}
         </Stepper.Step>
         <Stepper.Completed>
-          <VerifyItem id={titleValue} setIsValid={setIsValid} />
+          <VerifyItem id={titleValue} setIsValid={setIsValid} s={undefined} />
         </Stepper.Completed>
       </Stepper>
 

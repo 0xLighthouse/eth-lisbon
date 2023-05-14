@@ -62,9 +62,6 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
 
   return (
     <Grid mt={"md"}>
-      <Button variant="outline" onClick={() => setReload(!reload)}>
-        Reload
-      </Button>
       <Grid.Col span={4}>
         <Text size={"md"}>{item.content} </Text>
         <Grid>
@@ -74,6 +71,9 @@ function VerifyItem({ id, setIsValid }: VerifyItemProps) {
             </Badge>
           </Grid.Col>
         </Grid>
+        <Button variant="outline" onClick={() => setReload(!reload)} mt="md">
+          Reload
+        </Button>
       </Grid.Col>
       <Grid.Col span={"auto"} ml={"sm"}>
         <Grid>
