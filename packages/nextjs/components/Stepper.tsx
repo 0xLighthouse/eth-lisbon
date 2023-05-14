@@ -63,7 +63,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
   return (
     <>
       <Stepper active={active} onStepClick={setActive} breakpoint="sm" mt={"sm"} size="sm">
-        <Stepper.Step label="Encode" description="Encode your content">
+        <Stepper.Step label="Publish" description="Any arbitrary content (Soon)">
           {/* <TextInput
             label="Title"
             placeholder="Announcement title"
@@ -72,16 +72,16 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
             onChange={e => setTitleValue(e.currentTarget.value)}
           /> */}
           <Textarea
-            placeholder="Announcement body"
-            label="Content"
+            placeholder="WAGMI, ETHGlobal!"
+            label="Your content"
             withAsterisk
-            minRows={4}
+            minRows={8}
             mt="xs"
             value={bodyValue}
             onChange={e => setBodyValue(e.currentTarget.value)}
           />
         </Stepper.Step>
-        <Stepper.Step label="Collect" description="Collect bruh">
+        <Stepper.Step label="Sign" description="SomeRegistry.sol">
           <Grid mt={"sm"}>
             <Grid.Col span={7}>
               <Flex direction={"column"} gap={"xs"}>
@@ -129,7 +129,11 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                     </>
                   )}
                   {!isShown && (
-                    <Button variant="default" onClick={() => setIsShown(true)}>
+                    <Button variant="default" onClick={() => {
+                      setName('')
+                      setNewAddress('')
+                      setIsShown(true)
+                    }}>
                       Add address
                     </Button>
                   )}
@@ -170,9 +174,9 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
         <Stepper.Completed>Completed, click back button to get to previous step</Stepper.Completed>
       </Stepper>
 
-      <Group position="center" mt="xl">
-        <Button variant="outline" onClick={handleNext}>
-          Next step
+      <Group position="center" m={`lg`}>
+        <Button variant={'light'} onClick={handleNext} size={'md'} uppercase>
+          Next
         </Button>
       </Group>
     </>

@@ -8,7 +8,6 @@ import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 const Create: NextPage = () => {
   const account = useAccount();
-  const [isOpenedModal, setIsOpenedModal] = useState(false);
   const [active, setActive] = useState(0);
   const nextStep = () => setActive(current => (current < 3 ? current + 1 : current));
   const prevStep = () => setActive(current => (current > 0 ? current - 1 : current));
@@ -16,10 +15,10 @@ const Create: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Scaffold-ETH 2 App</title>
+        <title>ETHGlobal Lisbon 2023</title>
         <meta name="description" content="Created with 🏗 scaffold-eth-2" />
       </Head>
-      <Container sx={{ width: "80%" }}>
+      <Container mt={`lg`} sx={{ width: "80%" }}>
         {account.address ? (
           <>
             <StepperComponent

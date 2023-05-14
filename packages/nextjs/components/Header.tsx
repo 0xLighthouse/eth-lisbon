@@ -2,10 +2,10 @@ import React, { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
-import { Bars3Icon, BugAntIcon, PlusCircleIcon, PlusIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BellAlertIcon, NewspaperIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
-import { createSignedContent } from "~~/lib/sql";
+
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const router = useRouter();
@@ -16,8 +16,8 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
       href={href}
       passHref
       className={`${
-        isActive ? "bg-secondary shadow-md" : ""
-      } hover:bg-secondary hover:shadow-md focus:bg-secondary py-1.5 px-3 text-sm rounded-full gap-2`}
+        isActive ? "bb-2" : ""
+      } px-3 rounded-3xl gap-3`}
     >
       {children}
     </Link>
@@ -37,25 +37,23 @@ export const Header = () => {
     useCallback(() => setIsDrawerOpen(false), []),
   );
 
-  // const handleCreate = async e => {
-  //   e.preventDefault();
-  //   await createSignedContent();
-  // };
-
   const navLinks = (
     <>
       <li>
-        <NavLink href="/">Home</NavLink>
+        <NavLink href="/">
+          <NewspaperIcon className="h-6 w-6" />
+          Feed
+        </NavLink>
       </li>
       <li>
         <NavLink href="/create">
-          <BugAntIcon className="h-4 w-4" />
-          Create
+          <BellAlertIcon className="h-6 w-6" />
+          Create announcement
         </NavLink>
       </li>
       <li>
         <Link href={"/verify"}>
-          <PlusCircleIcon className="h-4 w-4" />
+          <PlusCircleIcon className="h-6 w-6" />
           Verify
         </Link>
       </li>
