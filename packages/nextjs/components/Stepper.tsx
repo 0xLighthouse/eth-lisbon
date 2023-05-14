@@ -16,6 +16,7 @@ import {
   TextInput,
   Textarea,
 } from "@mantine/core";
+import { isAddress } from "ethers/lib/utils.js";
 import { useAccount } from "wagmi";
 
 interface Props {
@@ -134,6 +135,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                         miw={"100%"}
                         label="Address"
                         onChange={e => setNewAddress(e.currentTarget.value)}
+                        error={!isAddress(newAddress) && "Not a valid address"}
                         value={newAddress}
                       />
                       <Group align="end">
@@ -147,6 +149,7 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
                         />
                         <Button
                           variant="default"
+                          disabled={!isAddress(newAddress)}
                           onClick={() => {
                             setAuthorsList(prevNames => [...prevNames, { address: newAddress, name: name }]);
                             setIsShown(false);
