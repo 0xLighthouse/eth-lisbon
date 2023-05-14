@@ -54,7 +54,6 @@ export const StepperComponent: React.FC<Props> = ({ active, nextStep, prevStep, 
     }
     if (active == 3) {
       handlePublish();
-      alert("PUBLISHED");
     }
     nextStep();
   };
